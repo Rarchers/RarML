@@ -7,3 +7,5 @@ class layer:
 
     def backforward(self, output_value, target_value, acfun):
         pass
+    def getoutputs(self):
+        pass

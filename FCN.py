@@ -52,16 +52,15 @@ class FCN(layer):
         # 更新权重
 
         # 权重的矩阵测试输出
-        print("========================")
-        print((output_error * output * (1.0 - output)))
-        print("+++++++++++++++++++++++++++")
-        print(self.outputs.T)
+
         # 更新权重,利用矩阵计算权重的调整值(本质其实还是求偏导数的链式求导法则)
-        self.wights += self.lr * np.dot((output_error * output * (1.0 - output)), self.outputs.T)
+        self.wights += self.lr * np.dot((output_error * output * (1.0 - output)).T, self.outputs)
         # 更新偏移度
         self.bias += self.lr * (output_error * output * (1.0 - output))
         print("更新后weight: "+str(self.wights))
         print("更新后bias: "+str(self.bias))
         pass
+    def getoutputs(self):
+        return self.outputs
 
 
