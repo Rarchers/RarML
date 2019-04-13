@@ -1,5 +1,6 @@
 import numpy as np
 from DNN import DNN
+from DNN_PRO import DNNpro
 # 这个类用于测试网络层
 from Model import Model
 
@@ -21,31 +22,32 @@ if __name__ == '__main__':
     # # 测试复合网络层
     # print(net1.feedforward(network.feedforward([1, 2, 5]).T))
 
+
+
+    layerSizeList = [2,5]
+
     # 创建训练数据集
     train = [
-    [-2, -1],
-    [25, 6],
-    [17, 4],
-    [-15, -6],
-    [0, 0]]
+        [-2, -1],
+        [25, 6],
+        [17, 4],
+        [-15, -6],
+        [0, 0]]
     # 创建训练答案
     key = [[1], [0], [0], [1], [0]]
     # 把数据集化为矩阵,传入训练模型
     train = np.array(train)
     key = np.array(key)
-
     test = [25, 6]
     test2 = [-2, -1]
 
-
-    # 初始化模组
     model = Model()
-    # 添加两个全连接层
-    model.add(DNN(2, 4))
-    model.add(DNN(4, 1))
-    # 开始训练模型,训练次数为2
-    model.train(train, key, 2000)
+    model.add(DNNpro(1, 1, layerSizeList, 1.0))
+    model.train(train, key, 10)
+    model.predict(test)
 
-    model.evaluate(test)
-    model.evaluate(test2)
+
+    # neuralNetwork = DNNpro(inputList, outputList, layerSizeList, 1.0)
+    # neuralNetwork.train(10000)
+
 
