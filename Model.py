@@ -1,12 +1,11 @@
-import Layer
-
-
 class Model:
     def __init__(self):
+        # 初始化两个栈来保存层信息
         self.stack1 = Stack()
         self.stack2 = Stack()
         pass
     def add(self, layers):
+        # 添加网络层
         self.stack1.push(layers)
         pass
     def train(self, input_list, target_value, train_loop):
@@ -35,8 +34,10 @@ class Model:
             # 反向传播:
             layertotal = self.stack1.size()
             while not self.stack1.is_empty():
+                # 取出一个网络层
                 layer = self.stack1.pop()
                 print("层"+str(layertotal-self.stack1.size())+str(layer))
+                # 开始反向传播
                 layer.backforward(layer.getoutputs().T, target_value)
                 self.stack2.push(layer)
                 print()
@@ -44,12 +45,6 @@ class Model:
             while not self.stack2.is_empty():
                 self.stack1.push(self.stack2.pop())
             loop += 1
-
-
-
-
-
-
 
 class Stack(object):
     """栈"""

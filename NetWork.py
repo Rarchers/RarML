@@ -1,6 +1,4 @@
-
-from FCN import FCN
-
+from DNN import DNN
 # 这个类用于测试网络层
 from Model import Model
 
@@ -22,9 +20,12 @@ if __name__ == '__main__':
     # # 测试复合网络层
     # print(net1.feedforward(network.feedforward([1, 2, 5]).T))
 
+    # 初始化模组
     model = Model()
-    model.add(FCN(3, 2))
-    model.add(FCN(2, 1))
+    # 添加两个全连接层
+    model.add(DNN(3, 2))
+    model.add(DNN(2, 1))
+    # 开始训练模型,训练次数为2
     model.train([1, 2, 5], ([3]), 2)
 
 
