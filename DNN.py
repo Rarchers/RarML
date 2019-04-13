@@ -3,7 +3,7 @@ import scipy.special # 这是S函数,也就是sigmoid函数的库
 
 from Layer import layer
 
-
+# DNN层,接受一个一维向量,输出一维向量,两个DNN层中,上一层输出个数一定要等于下一层输入个数
 class DNN(layer):
     def __init__(self, inputnodes, outputnodes, learn_rate=0.1, activation_functon = "sigmoid"):
         # 每一层的输入节点和输出节点,用于构造权重矩阵
