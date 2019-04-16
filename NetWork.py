@@ -1,53 +1,44 @@
 import numpy as np
 from DNN import DNN
-from DNN_PRO import DNNpro
 # 这个类用于测试网络层
 from Model import Model
 
+# 如何使用框架来创建一个神经网络:
+#   1.使用如下语句创建一个model对象来组建你的神经网络:
+#       model = Model()
+#   2.添加一个神经网络层(暂时只支持添加DNN层),使用如下语句:
+#       model.add(layer)      layer为相应的神经网络层
+#   3.使用如下语句训练你的神经网络:
+#       model.train(input, target, loop)
+#   4.使用训练好的神经网络开始预测:
+#       model.predict(input)
+
+# 关于我可以使用的网络层(佛系更新):
+#   1.DNN层:
+#       使用方法为 model.add(DNN(input_size, hidden_size, output_size))
+#       完整传参: (self, inputnodes, hidden_size, outputnodes, learn_rate, activation_functon):
+#       inputnodes:                 输入神经元个数
+#       hidden_size:                隐藏层神经元个数
+#       outputnodes:                输出层神经元个数
+#       learn_rate:                 学习速率    ->默认为0.2
+#       activation_function:        激活函数    ->默认为ReLU函数(暂时只支持ReLU函数)
+# ----------------------------------------------------------------------------------------------- #
+#       注意::DNN层只能添加一层,实际训练也只会训练最新添加的DNN层
+# ----------------------------------------------------------------------------------------------- #
+
 if __name__ == '__main__':
-    # # 以后抽象一个对象来统一管理所有的层,实现feedforward和backforward
-    # # 现在暂时手动实现
-    #
-    # # 构建隐藏层的第一层
-    # network = FCN(3, 2)
-    # # 构建第二层
-    # net1 = FCN(2, 1)
-    # # 先试一下feedforward,传入[1, 2, 5]  矩阵计算后是一个2*1的矩阵,我们需要转置
-    # print(network.feedforward([1, 2, 5]).T)
-    # # 测试反向传播,注意:这里的结果一定是传最后的结果,也就是最后一层的输出神经元个数相应维度的矩阵
-    # # 根据矩阵计算,例如2*3的矩阵和3*1的矩阵相乘后是2*1的矩阵,我们下一个参数传入的是1*n的矩阵,因此需要进行转置操作
-    # net1.backforward(net1.feedforward(network.feedforward([1, 2, 5]).T), ([3]))
-    # net1.backforward(net1.feedforward(network.feedforward([1, 2, 5]).T), ([3]))
-    # net1.backforward(net1.feedforward(network.feedforward([1, 2, 5]).T), ([3]))
-    # # 测试复合网络层
-    # print(net1.feedforward(network.feedforward([1, 2, 5]).T))
-
-
-
-    layerSizeList = [2,5]
-
-    # 创建训练数据集
-    train = [
-        [-2, -1],
-        [25, 6],
-        [17, 4],
-        [-15, -6],
-        [0, 0]]
-    # 创建训练答案
-    key = [[1], [0], [0], [1], [0]]
-    # 把数据集化为矩阵,传入训练模型
-    train = np.array(train)
-    key = np.array(key)
-    test = [25, 6]
-    test2 = [-2, -1]
-
+    # 训练集
+    train = np.array([[1,0,1],
+                      [0,1,1],
+                      [0,0,1],
+                      [1,1,1]])
+    key = np.array([[1,1,0,0]]).T
+    # 新建一个模组
     model = Model()
-    model.add(DNNpro(1, 1, layerSizeList, 1.0))
-    model.train(train, key, 10)
-    model.predict(test)
-
-
-    # neuralNetwork = DNNpro(inputList, outputList, layerSizeList, 1.0)
-    # neuralNetwork.train(10000)
-
+    # 添加一个DNN层
+    model.add(DNN(3, 4, 1))
+    # 训练60次
+    model.train(train, key, 60)
+    # 进行一次预测
+    model.predict([0,0,0])
 
