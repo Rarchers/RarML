@@ -19,9 +19,8 @@ from Model import Model
 #       完整传参: (self, inputnodes, hidden_size, outputnodes, learn_rate, activation_functon):
 #       inputnodes:                 输入神经元个数
 #       hidden_size:                隐藏层神经元个数
-#       outputnodes:                输出层神经元个数
+#       outputnodes:                输出层神经元个数#       activation_function:        激活函数    ->默认为ReLU函数(暂时只支持ReLU函数)
 #       learn_rate:                 学习速率    ->默认为0.2
-#       activation_function:        激活函数    ->默认为ReLU函数(暂时只支持ReLU函数)
 # ----------------------------------------------------------------------------------------------- #
 #       注意::DNN层只能添加一层,实际训练也只会训练最新添加的DNN层
 # ----------------------------------------------------------------------------------------------- #
@@ -37,8 +36,7 @@ if __name__ == '__main__':
     model = Model()
     # 添加一个DNN层
     model.add(DNN(3, 4, 1))
-    # 训练60次
     model.train(train, key, 60)
-    # 进行一次预测
+    # 进行一次预测    # 训练60次
     model.predict([0,0,0])
 
